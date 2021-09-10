@@ -1,0 +1,21 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello SnowtricksController!{% endblock %}
+
+{% block body %}
+
+    <section id="tricks" class="snowtricks">
+    {% for snowtrick in snowtricks %}
+        <article>
+            <h2> {{snowtrick.nom}} </h2>
+            <div class="metadata"> {{ snowtrick.groupeFigure }} </div>
+            <div class="centent">
+                <img src="https://place-hold.it/150x150" alt="">
+                {{snowtrick.description}}
+                <a href="{{ path('snowtricks_show', {'id':snowtrick.id}) }}" class="btn btn-primary">voir l'article</a>
+            </div>
+        </article>
+    {% endfor %}
+    </section>
+
+{% endblock %}

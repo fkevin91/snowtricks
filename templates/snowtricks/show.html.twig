@@ -1,0 +1,17 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello SnowtricksController!{% endblock %}
+
+{% block body %}
+
+        <article>
+            <h2> {{snowtrick.nom}} </h2>
+            <div class="metadata"> {{ snowtrick.groupeFigure }} </div>
+            <div class="centent">
+                <img src="https://place-hold.it/150x150" alt="">
+                {{snowtrick.description}}
+            </div>
+        </article>
+
+
+{% endblock %}
