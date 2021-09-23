@@ -28,8 +28,12 @@ class SnowtricksController extends AbstractController
      */
     public function home(): Response
     {
+        $repo = $this->getDoctrine()->getRepository(Snowtricks::class);
+        $snowtricks = $repo->findAll();
+
         return $this->render('snowtricks/home.html.twig', [
             'controller_name' => 'SnowtricksController',
+            'snowtricks' => $snowtricks
         ]);
     }
     /**
@@ -42,6 +46,7 @@ class SnowtricksController extends AbstractController
         $repo_message = $this->getDoctrine()->getRepository(Message::class);
         $message = $repo_message->findAll($id);
         return $this->render('snowtricks/show.html.twig', [
+            'controller_name' => 'SnowtricksController',
             'snowtrick' => $snowtrick,
             'message' => $message
         ]);
