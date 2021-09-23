@@ -1,6 +1,12 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello SnowtricksController!{% endblock %}
+{% block title %}
+    Hello SnowtricksController!
+{% endblock %}
+
+{% block accroche %}
+    {{snowtrick.nom}}
+{% endblock %}
 
 {% block body %}
 
@@ -12,6 +18,5 @@
                 {{snowtrick.description}}
             </div>
         </article>
-
 
 {% endblock %}
