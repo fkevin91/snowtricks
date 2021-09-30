@@ -35,6 +35,17 @@ class SnowtricksController extends AbstractController
         ]);
     }
     /**
+     * @Route("/forgotPassword", name="forgotPassword")
+     */
+    public function forgotPassword(): Response
+    {
+        //$repo = $this->getDoctrine()->getRepository(Snowtricks::class);
+        //$snowtricks = $repo->findAll();
+        return $this->render('snowtricks/forgotPassword.html.twig', [
+            'controller_name' => 'SnowtricksController'
+        ]);
+    }
+    /**
      * @Route("/login", name="login")
      */
     public function login(): Response
