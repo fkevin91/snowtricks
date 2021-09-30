@@ -11,6 +11,40 @@ use Doctrine\ORM\Mapping as ORM;
 class Message
 {
     /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="message")
+     */
+    private $user;
+
+    public function getUser(): ?User
+    {
+        return $this->user;
+    }
+
+    public function setUser(?User $user): self
+    {
+        $this->user = $user;
+
+        return $this;
+    }
+    
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\Snowtricks", inversedBy="message")
+     */
+    private $snowtricks;
+
+    public function getSnowtricks(): ?Snowtricks
+    {
+        return $this->snowtricks;
+    }
+
+    public function setSnowtricks(?Snowtricks $snowtricks): self
+    {
+        $this->snowtricks = $snowtricks;
+
+        return $this;
+    }
+    
+    /**
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
