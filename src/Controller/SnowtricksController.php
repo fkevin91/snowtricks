@@ -18,7 +18,7 @@ class SnowtricksController extends AbstractController
         $repo = $this->getDoctrine()->getRepository(Snowtricks::class);
         $snowtricks = $repo->findAll();
 
-        return $this->render('snowtricks/index.html.twig', [
+        return $this->render('snowtricks/home.html.twig', [
             'controller_name' => 'SnowtricksController',
             'snowtricks' => $snowtricks
         ]);
@@ -77,11 +77,11 @@ class SnowtricksController extends AbstractController
         $repo_figure = $this->getDoctrine()->getRepository(Snowtricks::class);
         $snowtrick = $repo_figure->find($id);
         $repo_message = $this->getDoctrine()->getRepository(Message::class);
-        $message = $repo_message->findAll($id);
+        $messages = $repo_message->findBy(array('snowtricks' => $id));
         return $this->render('snowtricks/show.html.twig', [
             'controller_name' => 'SnowtricksController',
             'snowtrick' => $snowtrick,
-            'message' => $message
+            'messages' => $messages
         ]);
     }
 }
