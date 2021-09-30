@@ -1,7 +1,7 @@
 {% extends 'base.html.twig' %}
 
 {% block title %}
-    Hello SnowtricksController!
+    {{snowtrick.nom}}
 {% endblock %}
 
 {% block accroche %}
@@ -10,13 +10,51 @@
 
 {% block body %}
 
-        <article class="mb-5">
-            <h2> {{snowtrick.nom}} </h2>
-            <div class="metadata"> {{ snowtrick.groupeFigure }} </div>
-            <div class="centent">
+        <article id="debut" class="pt-5">
+            <div class="d-sm-none d-flex justify-content-center ">
+                <p class="border text-white bg-dark p-1 rounded">See media</p>
+            </div>
+            <div class="d-sm-flex justify-content-evenly d-none">
                 <img src="https://place-hold.it/150x150" alt="">
-                {{snowtrick.description}}
+                <img src="https://place-hold.it/150x150" alt="">
+                <img src="https://place-hold.it/150x150" alt="">
+            </div>
+
+            <div class="centent p-5">
+                <div class="">
+                    {{snowtrick.description}}
+                </div>
+                <div class="d-flex justify-content-around">
+                    <div class="metadata border text-white bg-dark p-1 rounded"> {{ snowtrick.groupeFigure }} </div>
+                    <div class=" border text-white bg-dark p-1 rounded">{{snowtrick.createdAt |date("d/m/Y")}}</div>
+                    <div class=" border text-white bg-dark p-1 rounded">{{snowtrick.updatedAt |date("d/m/Y")}}</div>
+                </div>
             </div>
         </article>
+
+        <hr>
+
+        <form action="" method="post" class="mx-5 ">
+            <div class="form-outline pt-2 m-2">
+                <label class="form-label " for="form4Example1">Comment : </label>
+                <input type="text" name="comment"  id="form4Example1" class="form-control border-bottom border-info" />
+            </div>
+        </form>
+
+        <div class="m-5">
+        <h3>Comments :</h3>
+        {% for msg in messages %}
+        <div class="border bg-dark text-white d-flex justify-content-between p-2 align-middle">
+            <div>
+                <img class="rounded-circle align-middle"
+                    width="40" height="40"
+                    src="https://mdbootstrap.com/img/Photos/Avatars/img(19).jpg">
+                <p class="font-italic text-muted align-middle h6">{{msg.createdAt |date("d/m/Y")}}</p>
+            </div>
+            <p class=" align-middle">{{msg.message}}</p>
+        </div>
+        {% endfor %}
+
+        </div>
 
 {% endblock %}
