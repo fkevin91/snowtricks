@@ -1,0 +1,41 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello SnowtricksController!{% endblock %}
+
+{% block laPhoto %}
+
+{% endblock %}
+
+{% block body %}
+<div class="container ">
+    <h2 class="text-center p-2">LOGIN</h2>
+    <form class="border border-dark p-3 " action="" method="post">
+
+        <!-- pseudo input -->
+        <div class="form-outline pt-2">
+            <label class="form-label" for="form4Example2">Pseudo : </label>
+            <input type="text" name="pseudo" id="form4Example2" class="form-control" />
+        </div>
+        <!-- Email input -->
+        <div class="form-outline pt-2">
+            <label class="form-label" for="form4Example2">Adresse mail : </label>
+            <input type="email" name="mail" id="form4Example2" class="form-control" />
+        </div>
+        <!-- password input -->
+        <div class="form-outline pt-2">
+            <label class="form-label " for="form4Example1">Mot de passe : </label>
+            <input type="password" name="password" id="form4Example1" class="form-control" />
+        </div>
+
+        <input type="hidden" name="formulaire" value="registration">
+
+        <!-- Submit button -->
+        <div class="pt-2">
+            <button type="submit" class="btn btn-primary btn-block ">Send</button>
+        </div>
+    </form>
+
+    <a href="/registration"><p>créer un compte Snowtricks.</p></a>
+</div>
+{% endblock %}
+

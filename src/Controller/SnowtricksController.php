@@ -24,6 +24,28 @@ class SnowtricksController extends AbstractController
         ]);
     }
     /**
+     * @Route("/registration", name="registration")
+     */
+    public function registration(): Response
+    {
+        //$repo = $this->getDoctrine()->getRepository(Snowtricks::class);
+        //$snowtricks = $repo->findAll();
+        return $this->render('snowtricks/registration.html.twig', [
+            'controller_name' => 'SnowtricksController'
+        ]);
+    }
+    /**
+     * @Route("/login", name="login")
+     */
+    public function login(): Response
+    {
+        //$repo = $this->getDoctrine()->getRepository(Snowtricks::class);
+        //$snowtricks = $repo->findAll();
+        return $this->render('snowtricks/login.html.twig', [
+            'controller_name' => 'SnowtricksController'
+        ]);
+    }
+    /**
      * @Route("/", name="home")
      */
     public function home(): Response
