@@ -33,14 +33,14 @@ class Snowtricks
     private $groupeFigure;
 
     /**
-     * @ORM\Column(type="json", nullable=true)
+     * @ORM\Column(type="text", nullable=true)
      */
-    private $photo = [];
+    private $photo;
 
     /**
-     * @ORM\Column(type="json", nullable=true)
+     * @ORM\Column(type="text", nullable=true)
      */
-    private $video = [];
+    private $video;
 
     /**
      * @ORM\Column(type="datetime")
@@ -93,24 +93,24 @@ class Snowtricks
         return $this;
     }
 
-    public function getPhoto(): ?array
+    public function getPhoto(): ?string
     {
         return $this->photo;
     }
 
-    public function setPhoto(?array $photo): self
+    public function setPhoto(?string $photo): self
     {
         $this->photo = $photo;
 
         return $this;
     }
 
-    public function getVideo(): ?array
+    public function getVideo(): ?string
     {
         return $this->video;
     }
 
-    public function setVideo(array $video): self
+    public function setVideo(string $video): self
     {
         $this->video = $video;
 

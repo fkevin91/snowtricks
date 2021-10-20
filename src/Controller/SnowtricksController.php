@@ -3,13 +3,59 @@
 namespace App\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use App\Entity\Snowtricks;
 use App\Entity\Message;
 
+
 class SnowtricksController extends AbstractController
 {
+    /**
+     * @Route("/", name="home")
+     */
+    public function home(): Response
+    {
+        $repo = $this->getDoctrine()->getRepository(Snowtricks::class);
+        $snowtricks = $repo->findAll();
+    
+        return $this->render('snowtricks/home.html.twig', [
+            'controller_name' => 'SnowtricksController',
+            'snowtricks' => $snowtricks
+        ]);
+    }
+
+    /**
+     * @Route("/createSnowtrick", name="createSnowtrick")
+     */
+    public function createSnowtrick(Request $request): Response
+    {
+        $snowtrick = new Snowtricks();
+        $form = $this->createFormBuilder($snowtrick)
+            ->add('nom')
+            ->add('description')
+            ->add('groupeFigure')
+            ->add('photo')
+            ->add('video')
+            ->getForm();
+
+        $form->handleRequest($request);
+
+        if($form->isSubmitted() && $form->isValid()){
+            $snowtrick->setUpdatedAt(new \DateTime());
+            $snowtrick->setCreatedAt(new \DateTime());
+            $entityManager = $this->getDoctrine()->getManager(Snowtricks::class);
+            $entityManager->flush();
+        }
+
+        dump($snowtrick);
+        return $this->render('snowtricks/createSnowtrick.html.twig',
+        [
+            'formSnow' => $form->createView()
+        ]);
+    }
+
     /**
      * @Route("/snowtricks", name="snowtricks")
      */
@@ -23,52 +69,31 @@ class SnowtricksController extends AbstractController
             'snowtricks' => $snowtricks
         ]);
     }
+
     /**
      * @Route("/registration", name="registration")
      */
     public function registration(): Response
     {
-        //$repo = $this->getDoctrine()->getRepository(Snowtricks::class);
-        //$snowtricks = $repo->findAll();
-        return $this->render('snowtricks/registration.html.twig', [
-            'controller_name' => 'SnowtricksController'
-        ]);
+        return $this->render('snowtricks/registration.html.twig');
     }
-    /**
-     * @Route("/forgotPassword", name="forgotPassword")
-     */
-    public function forgotPassword(): Response
-    {
-        //$repo = $this->getDoctrine()->getRepository(Snowtricks::class);
-        //$snowtricks = $repo->findAll();
-        return $this->render('snowtricks/forgotPassword.html.twig', [
-            'controller_name' => 'SnowtricksController'
-        ]);
-    }
+
     /**
      * @Route("/login", name="login")
      */
     public function login(): Response
     {
-        //$repo = $this->getDoctrine()->getRepository(Snowtricks::class);
-        //$snowtricks = $repo->findAll();
-        return $this->render('snowtricks/login.html.twig', [
-            'controller_name' => 'SnowtricksController'
-        ]);
+        return $this->render('snowtricks/login.html.twig');
     }
-    /**
-     * @Route("/", name="home")
-     */
-    public function home(): Response
-    {
-        $repo = $this->getDoctrine()->getRepository(Snowtricks::class);
-        $snowtricks = $repo->findAll();
 
-        return $this->render('snowtricks/home.html.twig', [
-            'controller_name' => 'SnowtricksController',
-            'snowtricks' => $snowtricks
-        ]);
+    /**
+     * @Route("/forgotPassword", name="forgotPassword")
+     */
+    public function forgotPassword(): Response
+    {
+        return $this->render('snowtricks/forgotPassword.html.twig');
     }
+
     /**
      * @Route("/snowtricks/{id}", name="snowtricks_show")
      */

@@ -1,0 +1,21 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Create Snowtrick{% endblock %}
+
+{% block laPhoto %}
+
+{% endblock %}
+
+{% block body %}
+<h1 class="m-2">Create Snowtrick</h1>
+<div class="m-5">
+    {{ form_start(formSnow)}}
+    {{ form_row(formSnow.nom, { 'attr': {'class' : 'form-control m-1'}})}}
+    {{ form_row(formSnow.description, { 'attr': {'class' : 'form-control m-1'}})}}
+    {{ form_row(formSnow.groupeFigure, { 'attr': {'class' : 'form-control m-1'}})}}
+    {{ form_row(formSnow.photo, { 'attr': {'class' : 'form-control m-1'}})}}
+    {{ form_row(formSnow.video, { 'attr': {'class' : 'form-control m-1'}})}}
+    <button type="submit" class="form-control bg-dark text-white m-1 mt-3">Enregistrer</button>
+    {{ form_end(formSnow)}}
+</div>
+{% endblock %}
