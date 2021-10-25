@@ -15,7 +15,7 @@ class Snowtricks
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
      */
-    private $idx;
+    private $id;
 
     /**
      * @ORM\Column(type="string", length=255)
@@ -54,7 +54,7 @@ class Snowtricks
 
     public function getId(): ?int
     {
-        return $this->idx;
+        return $this->id;
     }
 
     public function getNom(): ?string

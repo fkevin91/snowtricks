@@ -49,7 +49,7 @@ class Message
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
      */
-    private $idx;
+    private $id;
 
     /**
      * @ORM\Column(type="text")
@@ -63,7 +63,7 @@ class Message
 
     public function getId(): ?int
     {
-        return $this->idx;
+        return $this->id;
     }
 
     public function getMessage(): ?string
