@@ -95,14 +95,14 @@ class SnowtricksController extends AbstractController
     }
 
     /**
-     * @Route("/snowtricks/{id}", name="snowtricks_show")
+     * @Route("/snowtricks/{idx}", name="snowtricks_show")
      */
-    public function show($id): Response
+    public function show($idx): Response
     {
         $repo_figure = $this->getDoctrine()->getRepository(Snowtricks::class);
-        $snowtrick = $repo_figure->find($id);
+        $snowtrick = $repo_figure->find($idx);
         $repo_message = $this->getDoctrine()->getRepository(Message::class);
-        $messages = $repo_message->findBy(array('snowtricks' => $id));
+        $messages = $repo_message->findBy(array('snowtricks' => $idx));
         return $this->render('snowtricks/show.html.twig', [
             'controller_name' => 'SnowtricksController',
             'snowtrick' => $snowtrick,

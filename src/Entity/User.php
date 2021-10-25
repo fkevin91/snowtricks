@@ -15,7 +15,7 @@ class User
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
      */
-    private $id;
+    private $idx;
 
     /**
      * @ORM\Column(type="string", length=255)
@@ -39,7 +39,7 @@ class User
 
     public function getId(): ?int
     {
-        return $this->id;
+        return $this->idx;
     }
 
     public function getPseudo(): ?string
