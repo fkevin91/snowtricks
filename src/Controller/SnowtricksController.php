@@ -43,10 +43,13 @@ class SnowtricksController extends AbstractController
         $form->handleRequest($request);
 
         if($form->isSubmitted() && $form->isValid()){
+            $snowtrick = $form->getData();
             $snowtrick->setUpdatedAt(new \DateTime());
             $snowtrick->setCreatedAt(new \DateTime());
-            $entityManager = $this->getDoctrine()->getManager(Snowtricks::class);
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->persist($snowtrick);
             $entityManager->flush();
+            return $this->show($snowtrick->getId());
         }
 
         dump($snowtrick);
