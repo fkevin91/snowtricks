@@ -82,7 +82,7 @@ class SnowtricksController extends AbstractController
     }
 
     /**
-     * @Route("/login", name="login")
+     * @Route("/plogin", name="plogin")
      */
     public function login(): Response
     {
