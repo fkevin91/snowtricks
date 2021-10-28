@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\SnowtricksRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -33,16 +35,6 @@ class Snowtricks
     private $groupeFigure;
 
     /**
-     * @ORM\Column(type="text", nullable=true)
-     */
-    private $photo;
-
-    /**
-     * @ORM\Column(type="text", nullable=true)
-     */
-    private $video;
-
-    /**
      * @ORM\Column(type="datetime")
      */
     private $createdAt;
@@ -51,6 +43,21 @@ class Snowtricks
      * @ORM\Column(type="datetime")
      */
     private $updatedAt;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=User::class, inversedBy="snowtricks")
+     */
+    private $userId;
+
+    /**
+     * @ORM\OneToMany(targetEntity=Media::class, mappedBy="snowtrickId")
+     */
+    private $media;
+
+    public function __construct()
+    {
+        $this->media = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -93,30 +100,6 @@ class Snowtricks
         return $this;
     }
 
-    public function getPhoto(): ?string
-    {
-        return $this->photo;
-    }
-
-    public function setPhoto(?string $photo): self
-    {
-        $this->photo = $photo;
-
-        return $this;
-    }
-
-    public function getVideo(): ?string
-    {
-        return $this->video;
-    }
-
-    public function setVideo(string $video): self
-    {
-        $this->video = $video;
-
-        return $this;
-    }
-
     public function getCreatedAt(): ?\DateTimeInterface
     {
         return $this->createdAt;
@@ -136,6 +119,48 @@ class Snowtricks
     public function setUpdatedAt(\DateTimeInterface $updatedAt): self
     {
         $this->updatedAt = $updatedAt;
+
+        return $this;
+    }
+
+    public function getUserId(): ?User
+    {
+        return $this->userId;
+    }
+
+    public function setUserId(?User $userId): self
+    {
+        $this->userId = $userId;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Media[]
+     */
+    public function getMedia(): Collection
+    {
+        return $this->media;
+    }
+
+    public function addMedium(Media $medium): self
+    {
+        if (!$this->media->contains($medium)) {
+            $this->media[] = $medium;
+            $medium->setSnowtrickId($this);
+        }
+
+        return $this;
+    }
+
+    public function removeMedium(Media $medium): self
+    {
+        if ($this->media->removeElement($medium)) {
+            // set the owning side to null (unless already changed)
+            if ($medium->getSnowtrickId() === $this) {
+                $medium->setSnowtrickId(null);
+            }
+        }
 
         return $this;
     }

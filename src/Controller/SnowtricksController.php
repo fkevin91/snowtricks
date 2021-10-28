@@ -19,10 +19,11 @@ class SnowtricksController extends AbstractController
     {
         $repo = $this->getDoctrine()->getRepository(Snowtricks::class);
         $snowtricks = $repo->findAll();
-    
-        return $this->render('snowtricks/home.html.twig', [
+        $user = $this->getUser();
+        return $this->render('snow/index.html.twig', [
             'controller_name' => 'SnowtricksController',
-            'snowtricks' => $snowtricks
+            'snowtricks' => $snowtricks,
+            'user' => $user
         ]);
     }
 
@@ -51,8 +52,6 @@ class SnowtricksController extends AbstractController
             $entityManager->flush();
             return $this->show($snowtrick->getId());
         }
-
-        dump($snowtrick);
         return $this->render('snowtricks/createSnowtrick.html.twig',
         [
             'formSnow' => $form->createView()
@@ -67,7 +66,7 @@ class SnowtricksController extends AbstractController
         $repo = $this->getDoctrine()->getRepository(Snowtricks::class);
         $snowtricks = $repo->findAll();
 
-        return $this->render('snowtricks/home.html.twig', [
+        return $this->render('snow/index.html.twig', [
             'controller_name' => 'SnowtricksController',
             'snowtricks' => $snowtricks
         ]);

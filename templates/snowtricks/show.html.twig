@@ -25,36 +25,39 @@
                     {{snowtrick.description}}
                 </div>
                 <div class="d-flex justify-content-around">
-                    <div class="metadata border text-white bg-dark p-1 rounded"> {{ snowtrick.groupeFigure }} </div>
-                    <div class=" border text-white bg-dark p-1 rounded">{{snowtrick.createdAt |date("d/m/Y")}}</div>
-                    <div class=" border text-white bg-dark p-1 rounded">{{snowtrick.updatedAt |date("d/m/Y")}}</div>
+                    <div class="metadata border text-white bg-dark p-1 rounded">Groupe : {{ snowtrick.groupeFigure }} </div>
+                    <div class=" border text-white bg-dark p-1 rounded">Crée le {{snowtrick.createdAt |date("d/m/Y")}}</div>
+                    <div class=" border text-white bg-dark p-1 rounded">Mis à jour le {{snowtrick.updatedAt |date("d/m/Y")}}</div>
                 </div>
             </div>
         </article>
 
         <hr>
 
-        <form action="" method="post" class="mx-5 ">
-            <div class="form-outline pt-2 m-2">
-                <label class="form-label " for="form4Example1">Comment : </label>
-                <input type="text" name="comment"  id="form4Example1" class="form-control border-bottom border-info" />
-            </div>
-        </form>
+        {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+            <form action="" method="post" class="mx-5 ">
+                <div class="form-outline pt-2 m-2">
+                    <label class="form-label " for="form4Example1">Comment : </label>
+                    <input type="text" name="comment"  id="form4Example1" class="form-control border-bottom border-info" />
+                </div>
+            </form>
+        {% endif %}
 
-
-        <div class="m-5">
-        <h3>Comments :</h3>
-        {% for msg in messages %}
-        <div class="border bg-dark text-white d-flex justify-content-between p-2 align-middle">
-            <div>
-                <img class="rounded-circle align-middle"
-                    width="40" height="40"
-                    src="https://mdbootstrap.com/img/Photos/Avatars/img(19).jpg">
-                <p class="font-italic text-muted align-middle h6">{{msg.createdAt |date("d/m/Y")}}</p>
+        {% if messages|length > 0 %}
+            <div class="m-5">
+            <h3>Comments :</h3>
+            {% for msg in messages %}
+            <div class="border bg-dark text-white d-flex justify-content-between p-2 align-middle">
+                <div>
+                    <img class="rounded-circle align-middle"
+                        width="40" height="40"
+                        src="https://mdbootstrap.com/img/Photos/Avatars/img(19).jpg">
+                    <p class="font-italic text-muted align-middle h6">{{msg.createdAt |date("d/m/Y")}}</p>
+                </div>
+                <p class=" align-middle">{{msg.message}}</p>
             </div>
-            <p class=" align-middle">{{msg.message}}</p>
-        </div>
-        {% endfor %}
+            {% endfor %}
+        {% endif %}
 
         </div>
 

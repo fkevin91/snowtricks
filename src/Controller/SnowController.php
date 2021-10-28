@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Snowtricks;
+use App\Entity\Message;
 use App\Form\SnowtricksType;
 use App\Repository\SnowtricksRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -31,6 +32,9 @@ class SnowController extends AbstractController
     public function new(Request $request): Response
     {
         $snowtrick = new Snowtricks();
+        $snowtrick->setUpdatedAt(new \DateTime());
+        $snowtrick->setCreatedAt(new \DateTime());
+        $snowtrick->setUserId($this->getUser());
         $form = $this->createForm(SnowtricksType::class, $snowtrick);
         $form->handleRequest($request);
 
@@ -51,10 +55,17 @@ class SnowController extends AbstractController
     /**
      * @Route("/{id}", name="snow_show", methods={"GET"})
      */
-    public function show(Snowtricks $snowtrick): Response
+    public function show($id): Response
     {
-        return $this->render('snow/show.html.twig', [
+        $repo_figure = $this->getDoctrine()->getRepository(Snowtricks::class);
+        $snowtrick = $repo_figure->find($id);
+        $repo_message = $this->getDoctrine()->getRepository(Message::class);
+        $messages = $repo_message->findBy(array('snowtricks' => $id));
+
+        return $this->render('snowtricks/show.html.twig', [
+            'controller_name' => 'SnowtricksController',
             'snowtrick' => $snowtrick,
+            'messages' => $messages
         ]);
     }
 
@@ -63,13 +74,16 @@ class SnowController extends AbstractController
      */
     public function edit(Request $request, Snowtricks $snowtrick): Response
     {
+        if((($this->getUser() == null) || ($this->getUser())->getId() != $snowtrick->getUserId()->getId())){
+            return $this->redirectToRoute('home', [], Response::HTTP_SEE_OTHER);
+        }
         $form = $this->createForm(SnowtricksType::class, $snowtrick);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $snowtrick->setUpdatedAt(new \DateTime());
             $this->getDoctrine()->getManager()->flush();
-
-            return $this->redirectToRoute('snow_index', [], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('home', [], Response::HTTP_SEE_OTHER);
         }
 
         return $this->renderForm('snow/edit.html.twig', [
@@ -89,6 +103,6 @@ class SnowController extends AbstractController
             $entityManager->flush();
         }
 
-        return $this->redirectToRoute('snow_index', [], Response::HTTP_SEE_OTHER);
+        return $this->redirectToRoute('home', [], Response::HTTP_SEE_OTHER);
     }
 }
