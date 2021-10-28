@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New Snowtricks{% endblock %}
+
+{% block body %}
+    <h1>Create new Snowtricks</h1>
+
+    {{ include('snow/_form.html.twig') }}
+
+    <a href="{{ path('snow_index') }}">back to list</a>
+{% endblock %}

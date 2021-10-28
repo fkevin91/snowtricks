@@ -1,0 +1,47 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Snowtricks index{% endblock %}
+
+{% block body %}
+    <h1>Snowtricks index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Nom</th>
+                <th>Description</th>
+                <th>GroupeFigure</th>
+                <th>Photo</th>
+                <th>Video</th>
+                <th>CreatedAt</th>
+                <th>UpdatedAt</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for snowtrick in snowtricks %}
+            <tr>
+                <td>{{ snowtrick.id }}</td>
+                <td>{{ snowtrick.nom }}</td>
+                <td>{{ snowtrick.description }}</td>
+                <td>{{ snowtrick.groupeFigure }}</td>
+                <td>{{ snowtrick.photo }}</td>
+                <td>{{ snowtrick.video }}</td>
+                <td>{{ snowtrick.createdAt ? snowtrick.createdAt|date('Y-m-d H:i:s') : '' }}</td>
+                <td>{{ snowtrick.updatedAt ? snowtrick.updatedAt|date('Y-m-d H:i:s') : '' }}</td>
+                <td>
+                    <a href="{{ path('snow_show', {'id': snowtrick.id}) }}">show</a>
+                    <a href="{{ path('snow_edit', {'id': snowtrick.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="9">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('snow_new') }}">Create new</a>
+{% endblock %}

@@ -1,0 +1,50 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Snowtricks{% endblock %}
+
+{% block body %}
+    <h1>Snowtricks</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ snowtrick.id }}</td>
+            </tr>
+            <tr>
+                <th>Nom</th>
+                <td>{{ snowtrick.nom }}</td>
+            </tr>
+            <tr>
+                <th>Description</th>
+                <td>{{ snowtrick.description }}</td>
+            </tr>
+            <tr>
+                <th>GroupeFigure</th>
+                <td>{{ snowtrick.groupeFigure }}</td>
+            </tr>
+            <tr>
+                <th>Photo</th>
+                <td>{{ snowtrick.photo }}</td>
+            </tr>
+            <tr>
+                <th>Video</th>
+                <td>{{ snowtrick.video }}</td>
+            </tr>
+            <tr>
+                <th>CreatedAt</th>
+                <td>{{ snowtrick.createdAt ? snowtrick.createdAt|date('Y-m-d H:i:s') : '' }}</td>
+            </tr>
+            <tr>
+                <th>UpdatedAt</th>
+                <td>{{ snowtrick.updatedAt ? snowtrick.updatedAt|date('Y-m-d H:i:s') : '' }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('snow_index') }}">back to list</a>
+
+    <a href="{{ path('snow_edit', {'id': snowtrick.id}) }}">edit</a>
+
+    {{ include('snow/_delete_form.html.twig') }}
+{% endblock %}
