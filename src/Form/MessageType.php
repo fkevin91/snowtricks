@@ -13,9 +13,6 @@ class MessageType extends AbstractType
     {
         $builder
             ->add('message')
-            ->add('createdAt')
-            ->add('user')
-            ->add('snowtricks')
         ;
     }
 

@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Message;
+use App\Entity\Snowtricks;
 use App\Form\MessageType;
 use App\Repository\MessageRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -26,20 +27,26 @@ class MessageController extends AbstractController
     }
 
     /**
-     * @Route("/new", name="message_new", methods={"GET","POST"})
+     * @Route("/new/{id}", name="message_new", methods={"GET","POST"})
      */
-    public function new(Request $request): Response
+    public function new($id, Request $request): Response
     {
+        $repo_figure = $this->getDoctrine()->getRepository(Snowtricks::class);
+        $snowtrick = $repo_figure->find($id);
         $message = new Message();
+        $message->setCreatedAt(new \DateTime());
+        $message->setUser($this->getUser());
+        $message->setSnowtricks($snowtrick);
         $form = $this->createForm(MessageType::class, $message);
         $form->handleRequest($request);
+        // $urlRedirect = '/message/new/' . $snowtrick->getId();
 
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($message);
             $entityManager->flush();
 
-            return $this->redirectToRoute('message_index', [], Response::HTTP_SEE_OTHER);
+            return $this->redirect('http://localhost:8000/message/new/' . $snowtrick->getId());
         }
 
         return $this->renderForm('message/new.html.twig', [

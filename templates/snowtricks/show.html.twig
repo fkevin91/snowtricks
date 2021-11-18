@@ -35,12 +35,10 @@
         <hr>
 
         {% if is_granted('IS_AUTHENTICATED_FULLY') %}
-            <form action="" method="post" class="mx-5 ">
-                <div class="form-outline pt-2 m-2">
-                    <label class="form-label " for="form4Example1">Comment : </label>
-                    <input type="text" name="comment"  id="form4Example1" class="form-control border-bottom border-info" />
-                </div>
-            </form>
+            <h3>Ajouter un commentaire</h3>
+            <div class="container91" style="position: relative; overflow: hidden; width: 100%; padding-top: 56.25%;">
+                <iframe class="responsive-iframe91" style="position: absolute; top: 0; left: 0; bottom: 0; right: 0; width: 80%; height: 20%;" src="/message/new/{{snowtrick.id}}"></iframe>
+            </div>
         {% endif %}
 
         {% if messages|length > 0 %}
