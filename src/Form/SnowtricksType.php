@@ -15,8 +15,6 @@ class SnowtricksType extends AbstractType
             ->add('nom')
             ->add('description')
             ->add('groupeFigure')
-            ->add('photo')
-            ->add('video')
         ;
     }
 

@@ -37,14 +37,13 @@ class SnowtricksController extends AbstractController
             ->add('nom')
             ->add('description')
             ->add('groupeFigure')
-            ->add('photo')
-            ->add('video')
             ->getForm();
 
         $form->handleRequest($request);
 
         if($form->isSubmitted() && $form->isValid()){
             $snowtrick = $form->getData();
+            $snowtrick->setUserId($this->getUser());
             $snowtrick->setUpdatedAt(new \DateTime());
             $snowtrick->setCreatedAt(new \DateTime());
             $entityManager = $this->getDoctrine()->getManager();
@@ -105,7 +104,7 @@ class SnowtricksController extends AbstractController
         $snowtrick = $repo_figure->find($id);
         $repo_message = $this->getDoctrine()->getRepository(Message::class);
         $messages = $repo_message->findBy(array('snowtricks' => $id));
-
+        // add order by
 
         return $this->render('snowtricks/show.html.twig', [
             'controller_name' => 'SnowtricksController',
