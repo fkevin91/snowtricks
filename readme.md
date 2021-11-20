@@ -8,3 +8,11 @@ pour importer le projet :
 ````
 git clone https://github.com/fkevin91/snowtricks.git
 ````
+
+Modifiez vootre fichier .env
+
+ - acces a la base de donnée
+ - configuration des mails
+
+import du jeu de donées (snowtricks.sql)
+qui se trouve dans le github du projet.
