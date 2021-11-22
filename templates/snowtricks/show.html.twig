@@ -35,9 +35,8 @@
         <hr>
 
         {% if is_granted('IS_AUTHENTICATED_FULLY') %}
-            <h3>Ajouter un commentaire</h3>
-            <div class="container91" style="position: relative; overflow: hidden; width: 100%; padding-top: 56.25%;">
-                <iframe class="responsive-iframe91" style="position: absolute; top: 0; left: 0; bottom: 0; right: 0; width: 80%; height: 20%;" src="/message/new/{{snowtrick.id}}"></iframe>
+            <div class="w-100 h-100 p-5" style="">
+                <iframe class="w-100" style="height: 225px;" src="/message/new/{{snowtrick.id}}"></iframe>
             </div>
         {% endif %}
 
