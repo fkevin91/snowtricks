@@ -17,12 +17,12 @@ use Symfony\Component\Routing\Annotation\Route;
 class MediaController extends AbstractController
 {
     /**
-     * @Route("/", name="media_index", methods={"GET"})
+     * @Route("/by/{id}", name="media_index", methods={"GET"})
      */
-    public function index(MediaRepository $mediaRepository): Response
+    public function index($id, MediaRepository $mediaRepository): Response
     {
         return $this->render('media/index.html.twig', [
-            'media' => $mediaRepository->findAll(),
+            'media' => $mediaRepository->findBy(['snowtrickId' => $id])
         ]);
     }
 

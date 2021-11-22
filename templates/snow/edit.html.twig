@@ -12,6 +12,9 @@
         {{ include('snow/_delete_form.html.twig') }}
     </div>
     <div class="w-100 h-100 p-5" style="">
+        <iframe class="w-100" style="height: 260px;" src="/media/by/{{snowtrick.id}}"></iframe>
+    </div>
+    <div class="w-100 h-100 p-5" style="">
         <iframe class="w-100" style="height: 260px;" src="/media/new/{{snowtrick.id}}"></iframe>
     </div>
     {{ include('snow/_form.html.twig', {'button_label': 'Update'}) }}
