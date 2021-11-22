@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Media;
+use App\Entity\Snowtricks;
 use App\Form\MediaType;
 use App\Repository\MediaRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -26,11 +27,17 @@ class MediaController extends AbstractController
     }
 
     /**
-     * @Route("/new", name="media_new", methods={"GET","POST"})
+     * @Route("/new/{id}", name="media_new", methods={"GET","POST"})
      */
-    public function new(Request $request): Response
+    public function new($id, Request $request): Response
     {
+        $repo_figure = $this->getDoctrine()->getRepository(Snowtricks::class);
+        $snowtrick = $repo_figure->find($id);
+        dump($snowtrick);
         $medium = new Media();
+        $medium->setSnowtrickId($snowtrick);
+        dump($medium);
+
         $form = $this->createForm(MediaType::class, $medium);
         $form->handleRequest($request);
 
@@ -39,7 +46,7 @@ class MediaController extends AbstractController
             $entityManager->persist($medium);
             $entityManager->flush();
 
-            return $this->redirectToRoute('media_index', [], Response::HTTP_SEE_OTHER);
+            return $this->redirect('http://localhost:8000/media/new/' . $snowtrick->getId());
         }
 
         return $this->renderForm('media/new.html.twig', [

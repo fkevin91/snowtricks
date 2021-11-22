@@ -6,6 +6,8 @@ use App\Entity\Media;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+
 
 class MediaType extends AbstractType
 {
@@ -13,9 +15,12 @@ class MediaType extends AbstractType
     {
         $builder
             ->add('lien')
-            ->add('typeMedia')
-            ->add('snowtrickId')
-        ;
+            ->add('typeMedia', ChoiceType::class, [
+                'choices'  => [
+                    'image' => true,
+                    'video' => false,
+                ],
+            ]);
     }
 
     public function configureOptions(OptionsResolver $resolver): void
