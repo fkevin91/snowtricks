@@ -12,14 +12,24 @@
 
         <article id="debut" class="pt-5">
             <div class="d-sm-none d-flex justify-content-center ">
-                <p id="btnshow" class="border text-white bg-dark p-1 rounded"  onclick="addElement()"><a href="#childElement"> See media</a></p>
+                <button id="myBtn" class="border text-white bg-dark p-1 rounded">voir media associés</button>
             </div>
             <div class="d-sm-flex justify-content-evenly d-none d-md-block">
                 <div class="w-75 h-100 p-5" style="">
                     <iframe class="w-100" style="height: 260px;" src="/media/by/{{snowtrick.id}}"></iframe>
                 </div>
             </div>
-            <p id="parentElement"></p>
+
+            <div id="myModal" class="modal h-100">
+                <div class="modal-content">
+                    <span class="close">&times;</span>
+                    <div class="d-sm-flex justify-content-evenly">
+                        <div class="w-75 h-100 p-5" style="">
+                            <iframe class="w-100" style="height: 260px;" src="/media/by/{{snowtrick.id}}"></iframe>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
             <div class="centent p-5">
                 <div class="">
@@ -58,16 +68,26 @@
         {% endif %}
 
         </div>
-        <script>
-            function delElement() {
-                var d = document.getElementById("parentElement");
-                var d_childElement = document.getElementById("childElement");
-                var throwawayNode = d.removeChild(d_childElement);
-            }
-            function addElement() {
-                document.getElementById("parentElement").innerHTML = "<div id=\"childElement\" class=\"w-100 h-100\"><a href=\"#btnshow\" onclick=\"delElement()\">Close</a><div class=\"w-75 h-100 p-5\"><iframe class=\"w-100\" style=\"height: 260px;\" src=\"/media/by/{{snowtrick.id}}\"></iframe></div></div>";
-            }
-        </script>
-        
+<script>
+var modal = document.getElementById("myModal");
+
+var btn = document.getElementById("myBtn");
+
+var span = document.getElementsByClassName("close")[0];
+
+btn.onclick = function() {
+  modal.style.display = "block";
+}
+
+span.onclick = function() {
+  modal.style.display = "none";
+}
+
+window.onclick = function(event) {
+  if (event.target == modal) {
+    modal.style.display = "none";
+  }
+}
+</script>
 
 {% endblock %}
