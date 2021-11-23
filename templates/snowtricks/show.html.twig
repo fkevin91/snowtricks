@@ -12,13 +12,14 @@
 
         <article id="debut" class="pt-5">
             <div class="d-sm-none d-flex justify-content-center ">
-                <p class="border text-white bg-dark p-1 rounded">See media</p>
+                <p id="btnshow" class="border text-white bg-dark p-1 rounded"  onclick="addElement()"><a href="#childElement"> See media</a></p>
             </div>
-            <div class="d-sm-flex justify-content-evenly d-none">
+            <div class="d-sm-flex justify-content-evenly d-none d-md-block">
                 <div class="w-75 h-100 p-5" style="">
                     <iframe class="w-100" style="height: 260px;" src="/media/by/{{snowtrick.id}}"></iframe>
                 </div>
             </div>
+            <p id="parentElement"></p>
 
             <div class="centent p-5">
                 <div class="">
@@ -57,5 +58,16 @@
         {% endif %}
 
         </div>
+        <script>
+            function delElement() {
+                var d = document.getElementById("parentElement");
+                var d_childElement = document.getElementById("childElement");
+                var throwawayNode = d.removeChild(d_childElement);
+            }
+            function addElement() {
+                document.getElementById("parentElement").innerHTML = "<div id=\"childElement\" class=\"w-100 h-100\"><a href=\"#btnshow\" onclick=\"delElement()\">Close</a><div class=\"w-75 h-100 p-5\"><iframe class=\"w-100\" style=\"height: 260px;\" src=\"/media/by/{{snowtrick.id}}\"></iframe></div></div>";
+            }
+        </script>
+        
 
 {% endblock %}
