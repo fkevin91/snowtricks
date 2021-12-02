@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Media;
 use App\Entity\Snowtricks;
 use App\Entity\Message;
 use App\Form\SnowtricksType;

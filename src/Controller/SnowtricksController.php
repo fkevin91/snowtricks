@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Media;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -19,10 +20,20 @@ class SnowtricksController extends AbstractController
     {
         $repo = $this->getDoctrine()->getRepository(Snowtricks::class);
         $snowtricks = $repo->findAll();
+        $repo_img = $this->getDoctrine()->getRepository(Media::class);
+        $images = $repo_img->findAll();
+        /*foreach($snowtricks as $snowtrick){
+            $image = $repo_img->findOneBy(array('snowtrickId' => $snowtrick->getId()));
+            if (isset($image)) {
+                $snowtrick->addMedium($image);
+            } 
+            dump($snowtrick);
+        }*/
+
         $user = $this->getUser();
         return $this->render('snow/index.html.twig', [
-            'controller_name' => 'SnowtricksController',
             'snowtricks' => $snowtricks,
+            'images' => $images,
             'user' => $user
         ]);
     }
@@ -37,6 +48,7 @@ class SnowtricksController extends AbstractController
             ->add('nom')
             ->add('description')
             ->add('groupeFigure')
+            ->add('photo')
             ->getForm();
 
         $form->handleRequest($request);
@@ -55,36 +67,6 @@ class SnowtricksController extends AbstractController
         [
             'formSnow' => $form->createView()
         ]);
-    }
-
-    /**
-     * @Route("/snowtricks", name="snowtricks")
-     */
-    public function index(): Response
-    {
-        $repo = $this->getDoctrine()->getRepository(Snowtricks::class);
-        $snowtricks = $repo->findAll();
-
-        return $this->render('snow/index.html.twig', [
-            'controller_name' => 'SnowtricksController',
-            'snowtricks' => $snowtricks
-        ]);
-    }
-
-    /**
-     * @Route("/registration", name="registration")
-     */
-    public function registration(): Response
-    {
-        return $this->render('snowtricks/registration.html.twig');
-    }
-
-    /**
-     * @Route("/plogin", name="plogin")
-     */
-    public function login(): Response
-    {
-        return $this->render('snowtricks/login.html.twig');
     }
 
     /**
