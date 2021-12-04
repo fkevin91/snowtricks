@@ -4,14 +4,25 @@
 
 [![Maintainability](https://api.codeclimate.com/v1/badges/d46f4c55600e835d8612/maintainability)](https://codeclimate.com/github/fkevin91/snowtricks/maintainability)
 
-pour importer le projet :
+Technical Requirements
+Before creating your first Symfony application you must:
+
+Install PHP 7.2.5 or higher and these PHP extensions
+
+Note that all newer, released versions of PHP will be supported during the lifetime of each Symfony release (including new major versions). For example, PHP 8.0 is supported.
+Install Composer, which is used to install PHP packages.
+
+install the dependencies present in the composer.json
+example : TWIG
+
+for import the project :
 ````
 git clone https://github.com/fkevin91/snowtricks.git
 ````
 
-Modifiez vootre fichier .env
+update your file .env
 
- - acces a la base de donnée
- - configuration des mails
+ - config access data base
+ - config mails
 
-import du jeu de donées.
+import play data.
