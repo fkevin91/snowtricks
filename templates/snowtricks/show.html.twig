@@ -17,7 +17,7 @@
         
         <article id="debut" class="pt-5">
             <div class="d-sm-none d-flex justify-content-center ">
-                <button id="myBtn" class="border text-white bg-dark p-1 rounded">voir media associés</button>
+                <button id="myBtn" class="border text-white bg-dark p-1 rounded">show media</button>
             </div>
             <div class="d-sm-flex justify-content-evenly d-none d-md-block">
                 <div class="w-75 h-100 p-5" style="">
@@ -41,9 +41,9 @@
                     {{snowtrick.description}}
                 </div>
                 <div class="d-flex justify-content-around">
-                    <div class="metadata border text-white bg-dark p-1 rounded">Groupe : {{ snowtrick.groupeFigure }} </div>
-                    <div class=" border text-white bg-dark p-1 rounded">Crée le {{snowtrick.createdAt |date("d/m/Y")}}</div>
-                    <div class=" border text-white bg-dark p-1 rounded">Mis à jour le {{snowtrick.updatedAt |date("d/m/Y")}}</div>
+                    <div class="metadata border text-white bg-dark p-1 rounded">Group : {{ snowtrick.groupeFigure }} </div>
+                    <div class=" border text-white bg-dark p-1 rounded">Created at {{snowtrick.createdAt |date("d/m/Y")}}</div>
+                    <div class=" border text-white bg-dark p-1 rounded">updated at {{snowtrick.updatedAt |date("d/m/Y")}}</div>
                 </div>
             </div>
         </article>

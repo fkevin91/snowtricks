@@ -64,7 +64,7 @@
                                 {% endif %}
                                 {% if is_granted('IS_AUTHENTICATED_FULLY') %}
                                     <li class="nav-item">
-                                        <a class="nav-link" href="/createSnowtrick">Ajouter une figure</a>
+                                        <a class="nav-link" href="/createSnowtrick">Add trick</a>
                                     </li>
                                     <li class="nav-item">
                                         <a class="nav-link" href="/logout">Log out</a>
@@ -80,13 +80,13 @@
             {% block laPhoto %}
             <div class="d-flex position-relative image">
             
-                <p class="font-italic text-dark fw-bold fs-1 m-auto">{% block accroche %}LE SNOW C'EST BOW{% endblock %}</p>
+                <p class="font-italic text-dark fw-bold fs-1 m-auto">{% block accroche %}THE SNOW IT'S BOW{% endblock %}</p>
                     <a class="position-absolute bottom-0 end-0" href="#debut">
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-down" viewBox="0 0 16 16">
                             <path fill-rule="evenodd" d="M8 1a.5.5 0 0 1 .5.5v11.793l3.146-3.147a.5.5 0 0 1 .708.708l-4 4a.5.5 0 0 1-.708 0l-4-4a.5.5 0 0 1 .708-.708L7.5 13.293V1.5A.5.5 0 0 1 8 1z"/>
                         </svg>
                     </a>
-                    <p class="position-absolute bottom-0">Photo by Johannes Waibel on Unsplash</p>
+                    <p class="position-absolute bottom-0">Picture by Johannes Waibel on Unsplash</p>
             </div>
             {% endblock %}
         {% block body %}{% endblock %}
