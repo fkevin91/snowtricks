@@ -11,6 +11,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Validator\Constraints\Length;
 
 /**
  * @Route("/snow")
@@ -98,7 +99,28 @@ class SnowController extends AbstractController
      */
     public function delete(Request $request, Snowtricks $snowtrick): Response
     {
+
+        $repo_media = $this->getDoctrine()->getRepository(Media::class);
+        $media = $repo_media->findBy(['snowtrickId' => $snowtrick->getId()]);
+
+        $repo_message = $this->getDoctrine()->getRepository(Message::class);
+        $messages = $repo_message->findBy(array('snowtricks' => $snowtrick->getId()));
+
         if ($this->isCsrfTokenValid('delete'.$snowtrick->getId(), $request->request->get('_token'))) {
+            if (count($messages)>0) {
+                for ($i=0; $i < count($messages) ; $i++) { 
+                    $entityManager = $this->getDoctrine()->getManager();
+                    $entityManager->remove($messages[$i]);
+                    $entityManager->flush();
+                }
+            }
+            if (count($media)>0) {
+                for ($i=0; $i < count($media) ; $i++) { 
+                    $entityManager = $this->getDoctrine()->getManager();
+                    $entityManager->remove($media[$i]);
+                    $entityManager->flush();
+                }
+            }
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->remove($snowtrick);
             $entityManager->flush();
