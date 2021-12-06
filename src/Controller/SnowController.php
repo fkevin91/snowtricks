@@ -11,6 +11,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Component\Validator\Constraints\Length;
 
 /**
@@ -57,12 +58,21 @@ class SnowController extends AbstractController
     /**
      * @Route("/{id}", name="snow_show", methods={"GET"})
      */
-    public function show($id): Response
+    public function show(
+        $id,
+        PaginatorInterface $paginator,
+        Request $request
+    ): Response
     {
         $repo_figure = $this->getDoctrine()->getRepository(Snowtricks::class);
         $snowtrick = $repo_figure->find($id);
         $repo_message = $this->getDoctrine()->getRepository(Message::class);
-        $messages = $repo_message->findBy(array('snowtricks' => $id));
+        $dataMessage = $repo_message->findBy(array('snowtricks' => $id));
+        $messages = $paginator->paginate(
+            $dataMessage,
+            $request->query->getInt('page', 1),
+            3
+        );
 
         return $this->render('snowtricks/show.html.twig', [
             'controller_name' => 'SnowtricksController',
