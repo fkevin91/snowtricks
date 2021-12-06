@@ -39,6 +39,10 @@
                 </svg>
             </a>
         </div>
+        <div class="d-flex justify-content-center">
+            {{ knp_pagination_render(snowtricks, 'pagination.html.twig') }}
+        </div>
+
     </div>
-    <a href="{{ path('snow_new') }}">Create new</a>
+
 {% endblock %}

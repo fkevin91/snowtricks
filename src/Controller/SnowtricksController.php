@@ -9,26 +9,29 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use App\Entity\Snowtricks;
 use App\Entity\Message;
-
+use App\Repository\SnowtricksRepository;
+use Knp\Component\Pager\Pagination\PaginationInterface;
+use Knp\Component\Pager\PaginatorInterface;
 
 class SnowtricksController extends AbstractController
 {
     /**
      * @Route("/", name="home")
      */
-    public function home(): Response
-    {
-        $repo = $this->getDoctrine()->getRepository(Snowtricks::class);
-        $snowtricks = $repo->findAll();
+    public function home(
+        SnowtricksRepository $snowtricksRepository, 
+        PaginatorInterface $paginator,
+        Request $request
+    ): Response {
+        $data = $snowtricksRepository->findAll();
+        $snowtricks = $paginator->paginate(
+            $data,
+            $request->query->getInt('page', 1),
+            15
+        );
         $repo_img = $this->getDoctrine()->getRepository(Media::class);
         $images = $repo_img->findAll();
-        /*foreach($snowtricks as $snowtrick){
-            $image = $repo_img->findOneBy(array('snowtrickId' => $snowtrick->getId()));
-            if (isset($image)) {
-                $snowtrick->addMedium($image);
-            } 
-            dump($snowtrick);
-        }*/
+
 
         $user = $this->getUser();
         return $this->render('snow/index.html.twig', [
