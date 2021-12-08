@@ -48,8 +48,7 @@ php bin/console doctrine:migrations:migrate
 
 Response : "yes"
 
-si un probleme survient, supprimer toutes les versions de migration .php
-ensuite rentrez cette commande : 
+if a problem occurs, remove all the .php migration versions then enter this command: 
 
 ````
 php bin/console make:migration
