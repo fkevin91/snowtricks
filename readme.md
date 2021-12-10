@@ -16,8 +16,16 @@ install the dependencies present in the composer.json
 example : TWIG
 
 for import the project :
+
+click clone a repository on vscode
+
+then indicate the url of the repository :
+
+"https://github.com/fkevin91/snowtricks"
+
+lancer la commande : 
 ````
-git clone https://github.com/fkevin91/snowtricks.git
+composer update
 ````
 
 update your file .env
@@ -25,4 +33,38 @@ update your file .env
  - config access data base
  - config mails
 
+
+entrer this command :
+
+````
+php bin/console doctrine:database:create
+````
+
+after :
+
+````
+php bin/console doctrine:migrations:migrate
+````
+
+Response : "yes"
+
+if a problem occurs, remove all the .php migration versions then enter this command: 
+
+````
+php bin/console make:migration
+````
+
+response : "yes"
+
+after : 
+````
+php bin/console doctrine:migrations:migrate
+````
+
+Response : "yes"
+
 import play data.
+
+enter this last command :
+
+symfony serve:start
