@@ -10,7 +10,6 @@ use Symfony\Component\Routing\Annotation\Route;
 use App\Entity\Snowtricks;
 use App\Entity\Message;
 use App\Repository\SnowtricksRepository;
-use Knp\Component\Pager\Pagination\PaginationInterface;
 use Knp\Component\Pager\PaginatorInterface;
 
 class SnowtricksController extends AbstractController
@@ -44,7 +43,7 @@ class SnowtricksController extends AbstractController
     /**
      * @Route("/createSnowtrick", name="createSnowtrick")
      */
-    public function createSnowtrick(Request $request): Response
+    public function createSnowtrick(Request $request, PaginatorInterface $paginator): Response
     {
         $snowtrick = new Snowtricks();
         $form = $this->createFormBuilder($snowtrick)
@@ -64,7 +63,7 @@ class SnowtricksController extends AbstractController
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($snowtrick);
             $entityManager->flush();
-            return $this->show($snowtrick->getId());
+            return $this->show($snowtrick->getId(), $paginator, $request);
         }
         return $this->render('snowtricks/createSnowtrick.html.twig',
         [
@@ -83,13 +82,21 @@ class SnowtricksController extends AbstractController
     /**
      * @Route("/snowtricks/{id}", name="snowtricks_show")
      */
-    public function show($id, Request $request = null): Response
+    public function show(
+        $id,
+        PaginatorInterface $paginator,
+        Request $request
+    ): Response
     {
         $repo_figure = $this->getDoctrine()->getRepository(Snowtricks::class);
         $snowtrick = $repo_figure->find($id);
         $repo_message = $this->getDoctrine()->getRepository(Message::class);
-        $messages = $repo_message->findBy(array('snowtricks' => $id));
-        // add order by
+        $dataMessage = $repo_message->findBy(array('snowtricks' => $id));
+        $messages = $paginator->paginate(
+            $dataMessage,
+            $request->query->getInt('page', 1),
+            3
+        );
 
         return $this->render('snowtricks/show.html.twig', [
             'controller_name' => 'SnowtricksController',
